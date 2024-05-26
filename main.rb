@@ -1,22 +1,21 @@
 def caesar_cipher(string, shift_factor)
-    lcase_letter_hash = ('a'.."z").each_with_index.to_h
-    ucase_letter_hash = ('A'.."Z").each_with_index.to_h
-    string_array = string.split("")
-    result_array = string_array.map do |letter|
-        if (!lcase_letter_hash.has_key?(letter) && !ucase_letter_hash.has_key?(letter))
-            shifted_letter = letter
-        elsif isUpCase?(letter)
-            shifted_letter = ucase_letter_hash.key((ucase_letter_hash[letter] - shift_factor)%26)
-        else
-            shifted_letter = lcase_letter_hash.key((lcase_letter_hash[letter] - shift_factor)%26)
-        end
+  result_array = string.chars.map do |char|
+    if char.match?(/[a-z]/)
+      shift_letter(char, 122, shift_factor)
+    elsif char.match?(/[A-Z]/)
+      shift_letter(char, 90, shift_factor)
+    else
+      char
     end
+  end
 
-    result_string = result_array.join("")
+  result_array.join
 end
 
-def isUpCase?(letter)
-    letter == letter.upcase
+def shift_letter(char, high_code, shift_factor)
+  new_char_num = char.ord + (shift_factor % 26)
+  new_char_num = (new_char_num - 26) unless new_char_num < (high_code + 1)
+  new_char_num.chr
 end
 
 puts "Please enter your string"

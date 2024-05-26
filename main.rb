@@ -13,7 +13,7 @@ end
 def shift_letter(char, shift_factor)
   high_code = (char.ord > 90) ? 122 : 90
   new_char_num = char.ord + (shift_factor % 26)
-  new_char_num = (new_char_num - 26) unless new_char_num < (high_code + 1)
+  new_char_num = (new_char_num - 26) unless new_char_num <= high_code
   new_char_num.chr
 end
 
